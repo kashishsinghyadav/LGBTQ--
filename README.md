@@ -60,7 +60,7 @@ Our initiatives aim to bridge the gap between different communities and create a
 1. Clone the repository:
 
     ```bash
-    
+     git clone https://github.com/yashmangal112/LGBTQ-
     ```
 
 2. Enter in cloned the directory:
