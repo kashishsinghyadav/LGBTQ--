@@ -1,7 +1,7 @@
 # PrideHub - A Safe Social Media Platform for the LGBTQ+ Community
 
 ## Problem
-
+ 
 Members of the LGBTQ+ community may face discrimination, harassment, and exclusion in their personal and professional lives, leading to social isolation and mental health issues.
 
 It can be difficult for individuals in the LGBTQ+ community to find resources and support, especially in areas where such resources are scarce or stigmatized.
