@@ -35,7 +35,7 @@ Clone the repository
 
 
 ```bash
-  git clone https://github.com/Ankur6702/PrideHub-Backend.git
+  https://github.com/yashmangal112/LGBTQ-
 ```
 
 Enter in cloned the directory
