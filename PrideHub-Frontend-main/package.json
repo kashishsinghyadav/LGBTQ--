@@ -1,0 +1,46 @@
+{
+  "name": "PrideHub-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.11.9",
+    "@mui/material": "^5.11.10",
+    "@mui/styled-engine-sc": "^5.11.9",
+    "@sentry/nextjs": "^7.38.0",
+    "axios": "^1.3.4",
+    "dayjs": "^1.11.7",
+    "dayjs-plugin-utc": "^0.1.2",
+    "dotenv": "^16.0.3",
+    "draft-js": "^0.11.7",
+    "draftjs-to-html": "^0.9.1",
+    "eslint": "8.34.0",
+    "eslint-config-next": "13.2.1",
+    "firebase": "^9.18.0",
+    "formik": "^2.2.9",
+    "jwt-decode": "^3.1.2",
+    "markdown-it": "^13.0.1",
+    "next": "^13.2.1",
+    "notistack": "^2.0.8",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-draft-wysiwyg": "^1.15.0",
+    "react-easy-crop": "^4.7.4",
+    "react-firebase-hooks": "^5.1.1",
+    "react-markdown": "8.0.6",
+    "styled-components": "^5.3.6",
+    "turndown": "^7.1.2",
+    "yup": "^1.0.0"
+  },
+  "devDependencies": {
+    "dotenv-webpack": "^8.0.1"
+  }
+}

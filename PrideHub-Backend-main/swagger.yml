@@ -1,0 +1,1294 @@
+openapi: 3.0.0
+info:
+  title: PrideHub API List
+  description: This is a reference api list of PrideHub Backend.
+  version: 1.0.0
+  contact:
+    email: yashmangal240@gmail.com
+servers:
+  - url: http://localhost:9999/api
+    description: Development server
+  - url: https://lgbtq-backend.onrender.com/api
+    description: Production Server
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - Authentication
+      summary: Signup
+      requestBody:
+        $ref: '#/components/requestBodies/Signup'
+      responses:
+        '400':
+          description: Invalid input
+        '500':
+          description: Internal Server Error
+        '200':
+          description: Admin Created Successfully
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: User Login
+      requestBody:
+        $ref: '#/components/requestBodies/Login'
+      responses:
+        '400':
+          description: Invalid input
+        '500':
+          description: Internal Server Error
+        '200':
+          description: User Logged In Successfully
+  /auth/forgot-password:
+    post:
+      tags:
+        - Authentication
+      summary: Forgot Password
+      requestBody:
+        $ref: '#/components/requestBodies/ForgotPassword'
+      responses:
+        '200':
+          description: Password Reset Link Sent Successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Admin Not Found
+        '500':
+          description: Internal Server Error
+  /auth/reset-password/{token}:
+    post:
+      tags:
+        - Authentication
+      summary: Password Reset
+      requestBody:
+        $ref: '#/components/requestBodies/ResetPassword'
+      responses:
+        '200':
+          description: Password Reset Successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Admin Not Found
+        '500':
+          description: Internal Server Error
+  /auth/reset-password/{token}:
+    get:
+      tags:
+        - Authentication
+      summary: Verify the link clicked by the user via email (From frontend)
+      parameters:
+        - in: path
+          name: token
+          description: Reset Password Token
+      responses:
+        '200':
+          description: Verified, now you can enter new password
+        '404':
+          description: Admin Not Found
+        '500':
+          description: Internal Server Error
+  /posts:
+    get:
+      tags:
+        - Common
+      summary: Get all posts
+      parameters:
+        - in: query
+          name: page
+          description: Page Number
+        - in: query
+          name: limit
+          description: Limit of posts per page
+        - in: query
+          name: sort
+          description: Sort by popular (default) or recent
+      responses:
+        '200':
+          description: Posts Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /fetchPosts/{userId}:
+    get:
+      tags:
+        - Common
+      summary: Get all posts of a particular user
+      parameters:
+        - in: path
+          name: userId
+          description: User ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Posts Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /fetchPost/{postId}:
+    get:
+      tags:
+        - Common
+      summary: Get a post
+      parameters:
+        - in: path
+          name: postId
+          description: Post ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Post Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /fetchFollowers/{userId}:
+    get:
+      tags:
+        - Common
+      summary: Get all followers of a particular user
+      parameters:
+        - in: path
+          name: userId
+          description: User ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Followers Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /fetchFollowing/{userId}:
+    get:
+      tags:
+        - Common
+      summary: Get all following of a particular user
+      parameters:
+        - in: path
+          name: userId
+          description: User ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Following Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /events:
+    get:
+      tags:
+        - Common
+      summary: Get all events
+      parameters:
+        - in: query
+          name: page
+          description: Page Number
+        - in: query
+          name: limit
+          description: Limit of events per page
+        - in: query
+          name: sort
+          description: Sort by - popular (default) or recent
+      responses:
+        '200':
+          description: Events Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /fetchUser/{userId}:
+    get:
+      tags:
+        - Common
+      summary: Get a user
+      parameters:
+        - in: path
+          name: userId
+          description: User ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: User Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /users:
+    get:
+      tags:
+        - Common
+      summary: Get all users
+      parameters:
+        - in: query
+          name: page
+          description: Page Number
+        - in: query
+          name: limit
+          description: Limit of users per page
+      responses:
+        '200':
+          description: Users Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /blogs:
+    get:
+      tags:
+        - Common
+      summary: Get all blogs
+      parameters:
+        - in: query
+          name: page
+          description: Page Number
+        - in: query
+          name: limit
+          description: Limit of blogs per page
+        - in: query
+          name: sort
+          description: Sort by - popular (default) or recent
+      responses:
+        '200':
+          description: Blogs Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /checkToxicity:
+    post:
+      tags:
+        - Common
+      summary: Check Toxicity of a text
+      requestBody:
+        $ref: '#/components/requestBodies/CheckToxicity'
+      responses:
+        '200':
+          description: Toxicity Score Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/profile:
+    get:
+      tags:
+        - User
+      summary: Get Profile for the logged in user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Profile Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/profile/update:  
+    put:
+      tags:
+        - User
+      summary: Update Profile
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: '#/components/requestBodies/UserProfile'
+      responses:
+        '200':
+          description: Profile Updated Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/search/{username}:
+    get:
+      tags:
+        - User
+      summary: Search Profile for a particular username
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: username
+          description: Username of the user
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Profile Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/follow/{userId}:
+    put:
+      tags:
+        - User
+      summary: Follow a user
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          description: User ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: User Followed Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/unfollow/{userId}:
+    put:
+      tags:
+        - User
+      summary: Unfollow a user
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          description: User ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: User Unfollowed Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /post/create:
+    post:
+      tags:
+        - Post
+      summary: Create a post
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: '#/components/requestBodies/CreatePost'
+      responses:
+        '200':
+          description: Post Created Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /post/all:
+    get:
+      tags:
+        - Post
+      summary: Get all posts of the logged in user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Posts Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /post/update/{postId}:
+    put:
+      tags:
+        - Post
+      summary: Update a particular post
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: postId
+          description: Post ID
+          schema:
+            type: string
+            format: ObjectId
+      requestBody:
+        $ref: '#/components/requestBodies/UpdatePost'
+      responses:
+        '200':
+          description: Post Updated Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /post/delete/{postId}:
+    delete:
+      tags:
+        - Post
+      summary: Delete a particular post
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: postId
+          description: Post ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Post Deleted Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /post/like/{postId}:
+    put:
+      tags:
+        - Post
+      summary: Like a post
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: postId
+          description: Post ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Post Liked Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /post/unlike/{postId}:
+    put:
+      tags:
+        - Post
+      summary: Unlike a post
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: postId
+          description: Post ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Post Unliked Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /comment/create/{postId}:
+    post:
+      tags:
+        - Comment
+      summary: Comment on a post
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: postId
+          description: Post ID
+          schema:
+            type: string
+            format: ObjectId
+      requestBody:
+        $ref: '#/components/requestBodies/CreateComment'
+      responses:
+        '200':
+          description: Comment Created Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /comment/fetch/{postId}:
+    get:
+      tags:
+        - Comment
+      summary: Get all comments of a post
+      parameters:
+        - in: path
+          name: postId
+          description: Post ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Comments Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /comment/delete/{commentId}:
+    delete:
+      tags:
+        - Comment
+      summary: Delete a comment
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: commentId
+          description: Comment ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Comment Deleted Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /comment/like/{commentId}:
+    put:
+      tags:
+        - Comment
+      summary: Like a comment
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: commentId
+          description: Comment ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Comment Liked Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /comment/unlike/{commentId}:
+    put:
+      tags:
+        - Comment
+      summary: Unlike a comment
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: commentId
+          description: Comment ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Comment Unliked Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /comment/dislike/{commentId}:
+    put:
+      tags:
+        - Comment
+      summary: Dislike a comment
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: commentId
+          description: Comment ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Comment Disliked Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /comment/undislike/{commentId}:
+    put:
+      tags:
+        - Comment
+      summary: Undislike a comment
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: commentId
+          description: Comment ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Comment Undisliked Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /event/create:
+    post:
+      tags:
+        - Event
+      summary: Create an event
+      requestBody:
+        $ref: '#/components/requestBodies/CreateEvent'
+      responses:
+        '200':
+          description: Event Created Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /event/fetch/{eventId}:
+    get:
+      tags:
+        - Event
+      summary: Get a particular event
+      parameters:
+        - in: path
+          name: eventId
+          description: Event ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Event Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /event/update/{eventId}:
+    put:
+      tags:
+        - Event
+      summary: Update an event
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: eventId
+          description: Event ID
+          schema:
+            type: string
+            format: ObjectId
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateEvent'
+      responses:
+        '200':
+          description: Event Updated Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /event/delete/{eventId}:
+    delete:
+      tags:
+        - Event
+      summary: Delete an event
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: eventId
+          description: Event ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Event Deleted Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /event/register/{eventId}:
+    put:
+      tags:
+        - Event
+      summary: Register for an event
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: eventId
+          description: Event ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Event Registered Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /event/upcoming:
+    get:
+      tags:
+        - Event
+      summary: Get all upcoming events
+      responses:
+        '200':
+          description: Upcoming Events Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /event/past:
+    get:
+      tags:
+        - Event
+      summary: Get all past events
+      responses:
+        '200':
+          description: Past Events Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /event/ongoing:
+    get:
+      tags:
+        - Event
+      summary: Get all ongoing events
+      responses:
+        '200':
+          description: Ongoing Events Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /event/myevents:
+    get:
+      tags:
+        - Event
+      summary: Get all events created by the user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: My Events Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /blog/create:
+    post:
+      tags:
+        - Blog
+      summary: Create a blog
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: '#/components/requestBodies/CreateUpdateBlog'
+      responses:
+        '200':
+          description: Blog Created Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /blog/fetch/{blogId}:
+    get:
+      tags:
+        - Blog
+      summary: Get a particular blog
+      parameters:
+        - in: path
+          name: blogId
+          description: Blog ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Blog Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /blog/update/{blogId}:
+    put:
+      tags:
+        - Blog
+      summary: Update a blog
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: blogId
+          description: Blog ID
+          schema:
+            type: string
+            format: ObjectId
+      requestBody:
+        $ref: '#/components/requestBodies/CreateUpdateBlog'
+      responses:
+        '200':
+          description: Blog Updated Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /blog/delete/{blogId}:
+    delete:
+      tags:
+        - Blog
+      summary: Delete a blog
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: blogId
+          description: Blog ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Blog Deleted Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /blog/upvote/{blogId}:
+    put:
+      tags:
+        - Blog
+      summary: Upvote a blog
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: blogId
+          description: Blog ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Blog Upvoted Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /blog/downvote/{blogId}:
+    put:
+      tags:
+        - Blog
+      summary: Downvote a blog
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: blogId
+          description: Blog ID
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: Blog Downvoted Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /blog/myblogs:
+    get:
+      tags:
+        - Blog
+      summary: Get all blogs created by the user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: My Blogs Fetched Successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        username:
+          type: string
+        isEmailVerified:
+          type: boolean
+          default: false
+        gender:
+          type: string
+        country:
+          type: string
+        dob:
+          type: string
+          format: date-time
+        bio:
+          type: string
+        profileImageURL:
+          type: string
+        coverImageURL:
+          type: string
+        followers:
+          type: array
+          items:
+            type: object
+            properties:
+              followerId:
+                type: string
+        following:
+          type: array
+          items:
+            type: object
+            properties:
+              followingId:
+                type: string
+        posts:
+          type: array
+          items:
+            type: object
+            properties:
+              postId:
+                type: string
+        isPrivate:
+          type: boolean
+          default: false
+        creationDate:
+          type: string
+          format: date-time
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        userID:
+          type: string
+        imageURL:
+          type: string
+        likes:
+          type: array
+          items:
+            type: object
+            properties:
+              likeId:
+                type: string
+        comments:
+          type: array
+          items:
+            type: object
+            properties:
+              commentId:
+                type: string
+        creationDate:
+          type: string
+          format: date-time
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        creator:
+          type: string
+        isOnline:
+          type: boolean
+          default: false
+        location:
+          type: string
+        dateTime:
+          type: string
+          format: date-time
+        imageURL:
+          type: string
+        attendees:
+          type: array
+          items:
+            type: object
+            properties:
+              attendeeId:
+                type: string
+        creationDate:
+          type: string
+          format: date-time
+    Comment:
+      type: object
+      properties:
+        id:
+          type: string
+        comment:
+          type: string
+        userID:
+          type: string
+        postID:
+          type: string
+        likes:
+          type: array
+          items:
+            type: object
+            properties:
+              likeId:
+                type: string
+        dislikes:
+          type: array
+          items:
+            type: object
+            properties:
+              dislikeId:
+                type: string
+        creationDate:
+          type: string
+          format: date-time
+        
+    SignupInput:
+      type: object
+      properties:
+        name:
+          type: string
+          required: true
+        username:
+          type: string
+          uniqueItems: true
+          required: true
+        email:
+          type: string
+          uniqueItems: true
+          required: true
+        password:
+          type: string
+          required: true
+        gender:
+          type: string
+          required: true
+    LoginInput:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    ForgotPasswordInput:
+      type: object
+      properties:
+        email:
+          type: string
+    ResetPasswordInput:
+      type: object
+      properties:
+        newPassword:
+          type: string
+        confirmPassword:
+          type: string
+    UpdateProfileInput:
+      type: object
+      properties:
+        name:
+          type: string
+        username:
+          type: string
+        bio:
+          type: string
+        profileImageURL:
+          type: string
+        coverImageURL:
+          type: string
+        dob:
+          type: string
+          format: date
+        country:
+          type: string
+        isPrivate:
+          type: boolean
+    CreatePostInput:
+      type: object
+      properties:
+        text:
+          type: string
+        imageURL:
+          type: string
+    UpdatePostInput:
+      type: object
+      properties:
+        text:
+          type: string
+    CreateCommentInput:
+      type: object
+      properties:
+        comment:
+          type: string
+    CreateEventInput:
+      type: object
+      properties:
+        title:
+          type: string
+          required: true
+        description:
+          type: string
+          required: true
+        isOnline:
+          type: boolean
+          default: true
+        location:
+          type: string
+        meetingLink:
+          type: string
+        startDate:
+          type: string
+          format: date
+        startTime:
+          type: string
+          format: time
+        endDate:
+          type: string
+          format: date
+        endTime:
+          type: string
+          format: time
+        imageURL:
+          type: string
+    UpdateEventInput:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        location:
+          type: string
+        meetingLink:
+          type: string
+        startDate:
+          type: string
+          format: date
+        startTime:
+          type: string
+          format: time
+        endDate:
+          type: string
+          format: date
+        endTime:
+          type: string
+          format: time
+        imageURL:
+          type: string
+    CheckToxicityInput:
+      type: object
+      properties:
+        text:
+          type: string
+    CreateUpdateBlogInput:
+      type: object
+      properties:
+        title:
+          type: string
+          required: true
+        content:
+          type: string
+          required: true
+        imageURL:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      name: Authorization
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+  requestBodies:
+    Signup:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SignupInput'
+        description: Signup
+    Login:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LoginInput'
+        description: Login
+    ForgotPassword:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ForgotPasswordInput'
+        description: Forgot Password
+    ResetPassword:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResetPasswordInput'
+        description: Reset Password
+    UserProfile:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateProfileInput'
+        description: Update Profile
+    CreatePost:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreatePostInput'
+        description: Create Post
+    UpdatePost:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdatePostInput'
+        description: Update Post
+    CreateComment:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateCommentInput'
+        description: Create Comment
+    CreateEvent:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateEventInput'
+        description: Create Event
+    UpdateEvent:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateEventInput'
+        description: Update Event
+    CheckToxicity:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CheckToxicityInput'
+        description: Check Toxicity
+    CreateUpdateBlog:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateUpdateBlogInput'
+        description: Create or Update Blog
