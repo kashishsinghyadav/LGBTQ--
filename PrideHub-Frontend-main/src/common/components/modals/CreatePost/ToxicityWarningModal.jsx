@@ -69,7 +69,7 @@ const ToxicityWarningModal = ({
               borderRadius: 2,
               height: { xs: 38, sm: "auto" },
               boxShadow: "none",
-              bgcolor: "#4E97F5",
+              bgcolor: "#CCFFFF",
               textTransform: "none",
               "&:focus": {
                 outline: "none",
