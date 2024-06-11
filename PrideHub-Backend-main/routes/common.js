@@ -265,27 +265,4 @@ router.get('/events', async (req, res) => {
     }
 });
 
-// To check the toxicity of text using Perspective API
-router.post('/checkToxicity', async (req, res) => {
-    logger.info('Checking toxicity of text');
-    try {
-        const text = req.body.text;
-        // @ts-ignore
-        const { data } = await axios.post(
-            `https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=${process.env.PERSPECTIVE_API_KEY}`,
-            {
-                comment: { text },
-                languages: ['en'],
-                requestedAttributes: { TOXICITY: {} },
-            }
-        );
-        logger.info('Toxicity checked');
-        res.status(200).json({ status: 'success', message: 'Toxicity checked', data: data });
-    } catch (error) {
-        logger.error('Internal Server Error: ', error.message);
-        res.status(500).json({ status: 'error', message: error.message });
-    }
-});
-
-
 module.exports = router;
