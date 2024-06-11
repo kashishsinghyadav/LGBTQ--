@@ -82,27 +82,12 @@ const CreatePostModal = ({ isOpen, handleClose }) => {
     setImageUrl(null);
   };
 
-  const checkToxicity = async (data, actions) => {
-    try {
-      const { postText } = data;
-      setText(postText);
-      const reqUrl = `${process.env.API_BASE_SERVICE}/api/checkToxicity`;
-      const requestData = {
-        text: postText || " ",
-      };
-      setUploading(true);
-      const Response = await postsService.post(reqUrl, requestData);
-      const toxicScore =
-        Response?.data?.data.attributeScores.TOXICITY.summaryScore.value;
-      if (toxicScore > 0.7) {
-        setUploading(false);
-        handleClick();
-      } else {
-        handlePostSubmit(postText);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const checkSubmit = async (data, actions) => {
+    const { postText } = data;
+    setText(postText);
+    setUploading(true);
+    handlePostSubmit(postText);
+
   };
 
   const handlePostSubmit = async (postText) => {
@@ -315,7 +300,7 @@ const CreatePostModal = ({ isOpen, handleClose }) => {
             <Formik
               initialValues={initialState}
               validationSchema={CreatePostFormValidationSchema}
-              onSubmit={checkToxicity}
+              onSubmit={checkSubmit}
               innerRef={formikRef}
             >
               {({ isSubmitting }) => (
@@ -333,12 +318,6 @@ const CreatePostModal = ({ isOpen, handleClose }) => {
           </Box>
         </DialogContent>
       </Dialog>
-      <ToxicityWarningModal
-        open={modalOpen}
-        handleClose={handleToxicityModalClose}
-        handlePostSubmit={handlePostSubmit}
-        postText={text}
-      />
     </>
   );
 };
