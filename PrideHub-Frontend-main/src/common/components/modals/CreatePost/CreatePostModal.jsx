@@ -25,7 +25,6 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import useUserContext from "@/src/profile/context/useUserContext";
 import PostsService from "@/src/home/service/PostsService";
 import CreatePostFormFields from "./CreatePostFormFields";
-import ToxicityWarningModal from "./ToxicityWarningModal";
 import usePosts from "@/src/home/context/usePosts";
 import { firebaseConfig } from "@/src/common/config/firebaseConfig";
 import { CreatePostFormValidationSchema } from "../utils/helper";
@@ -61,9 +60,6 @@ const CreatePostModal = ({ isOpen, handleClose }) => {
 
   const handleClick = () => {
     setModalOpen(true);
-  };
-  const handleToxicityModalClose = () => {
-    setModalOpen(false);
   };
 
   const initialState = {
