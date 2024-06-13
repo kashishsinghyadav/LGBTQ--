@@ -14,10 +14,6 @@
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Ankur6702/PrideHub-Backend/issues"
-  },
-  "homepage": "https://github.com/Ankur6702/PrideHub-Backend#readme",
   "dependencies": {
     "axios": "^1.3.4",
     "bcryptjs": "^2.4.3",
