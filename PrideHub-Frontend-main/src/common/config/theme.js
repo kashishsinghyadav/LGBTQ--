@@ -108,6 +108,16 @@ let theme = createTheme({
     },
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        contained: {
+          backgroundColor: '#b95fff',
+          '&:hover': {
+            backgroundColor: '#A32CFF',
+          },
+        },
+      },
+    },
     MuiFormHelperText: {
       styleOverrides: {
         root: {

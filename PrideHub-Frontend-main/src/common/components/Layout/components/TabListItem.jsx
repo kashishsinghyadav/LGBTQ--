@@ -22,7 +22,7 @@ const openedMixin = (theme) => ({
 });
 
 const closedMixin = (theme) => ({
-  bgcolor: "blue",
+  bgcolor: "purple",
   width: "100%",
   "& .MuiTypography-h6": {
     color: neutral["600"],

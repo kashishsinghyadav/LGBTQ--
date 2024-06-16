@@ -66,7 +66,8 @@ Our initiatives aim to bridge the gap between different communities and create a
 2. Enter in cloned the directory:
 
     ```bash
-      cd PrideHub-Backend
+      cd PrideHub-Frontend-main
+      cd PrideHub-Backend-main
     ```
 
 3. Install Node modules in the cloned folder
@@ -86,9 +87,6 @@ Our initiatives aim to bridge the gap between different communities and create a
     ```bash
       npm run dev
     ```
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
